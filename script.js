@@ -1,32 +1,32 @@
-const DEFAULT_TITLE = "Meeting Bingo";
+const DEFAULT_TITLE = "Micheal Bingo";
 const DEFAULT_ITEMS = [
-  "Can everyone see my screen?",
-  "Let's take this offline",
-  "Sorry, I was on mute",
-  "Can you repeat that?",
-  "Let's circle back",
-  "Per my last email",
-  "We're almost out of time",
-  "Someone's dog barks",
-  "Awkward silence",
-  "Internet connection issue",
-  "Let's table this for now",
-  "Synergy",
-  "Low-hanging fruit",
-  "Touch base",
-  "Move the needle",
-  "Deep dive",
-  "Bandwidth",
-  "Action items",
-  "Quick question",
-  "Going forward",
-  "At the end of the day",
-  "Think outside the box",
-  "Game changer",
-  "Drill down",
+  "Spills drink",
+  "Shouts out the bitches",
+  "Buys a beer he hates",
+  "Goes silent",
+  "Buys alchol instead of food",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "Does the tonge wagging thing",
+  "Askes someone else to buy him a drink",
+  "Comments on the music",
+  "Says something insane, then tries to dap someone up",
+  "Complains about work",
 ];
 
-const FREE_SPACE = "FREE";
+const FREE_SPACE = "Drinks";
 const CONFIG_KEY = "bingo-config";
 const BOARD_KEY = "bingo-board";
 
