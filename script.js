@@ -52,7 +52,7 @@ document.getElementById("reset-marks-btn").addEventListener("click", () => {
 });
 
 document.getElementById("share-btn").addEventListener("click", async () => {
-  const encoded = encodeConfig(config);
+  const encoded = encodeConfig(config, board);
   const url = `${location.origin}${location.pathname}?d=${encoded}`;
 
   try {
@@ -124,9 +124,16 @@ function loadConfig() {
   if (shared) {
     const decoded = decodeConfig(shared);
     if (decoded) {
-      saveConfig(decoded);
-      localStorage.removeItem(BOARD_KEY);
-      return decoded;
+      const cfg = { title: decoded.title, items: decoded.items };
+      saveConfig(cfg);
+
+      if (decoded.cells?.length === 25 && decoded.marked?.length === 25) {
+        saveBoard({ cells: decoded.cells, marked: decoded.marked });
+      } else {
+        localStorage.removeItem(BOARD_KEY);
+      }
+
+      return cfg;
     }
   }
 
@@ -165,8 +172,8 @@ function saveBoard(b) {
   localStorage.setItem(BOARD_KEY, JSON.stringify(b));
 }
 
-function encodeConfig(cfg) {
-  return btoa(encodeURIComponent(JSON.stringify(cfg)));
+function encodeConfig(cfg, brd) {
+  return btoa(encodeURIComponent(JSON.stringify({ ...cfg, cells: brd.cells, marked: brd.marked })));
 }
 
 function decodeConfig(encoded) {
