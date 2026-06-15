@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bingo Board</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <h1 id="board-title">Bingo</h1>
+
+    <div id="bingo-banner" class="banner hidden">BINGO!</div>
+
+    <div id="board" class="board"></div>
+
+    <div class="controls">
+      <button id="new-card-btn">New Card</button>
+      <button id="reset-marks-btn">Clear Marks</button>
+      <button id="share-btn">Copy Share Link</button>
+      <button id="edit-btn">Edit List</button>
+    </div>
+
+    <div id="editor" class="editor hidden">
+      <label for="title-input">Board title</label>
+      <input id="title-input" type="text" placeholder="Bingo" />
+
+      <label for="items-input">Items (one per line, need at least 24)</label>
+      <textarea id="items-input" rows="10"></textarea>
+
+      <div class="editor-buttons">
+        <button id="save-items-btn">Save &amp; Regenerate</button>
+        <button id="cancel-edit-btn">Cancel</button>
+      </div>
+    </div>
+
+    <p class="hint">Click a square to mark it. Get 5 in a row, column, or diagonal for BINGO!</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
