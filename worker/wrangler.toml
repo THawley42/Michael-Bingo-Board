@@ -1,0 +1,7 @@
+name = "bingo-board-backend"
+main = "src/index.js"
+compatibility_date = "2026-06-14"
+
+kv_namespaces = [
+  { binding = "BINGO_KV", id = "REPLACE_WITH_KV_NAMESPACE_ID" }
+]
