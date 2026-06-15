@@ -147,3 +147,37 @@ button:hover {
   font-size: 0.85rem;
   color: #999;
 }
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px 8px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .board {
+    gap: 4px;
+  }
+
+  .cell {
+    aspect-ratio: unset;
+    min-height: 56px;
+    padding: 4px;
+    font-size: 0.75rem;
+  }
+
+  button {
+    min-height: 44px;
+  }
+
+  .spill-counter button {
+    min-height: 44px;
+    padding: 8px 18px;
+  }
+
+  .editor textarea {
+    font-size: 1rem;
+  }
+}
