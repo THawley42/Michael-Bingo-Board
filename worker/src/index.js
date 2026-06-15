@@ -78,6 +78,12 @@ export default {
     }
 
     if (url.pathname === "/items" && request.method === "POST") {
+      const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+      const { success } = await env.RATE_LIMITER.limit({ key: ip });
+      if (!success) {
+        return json({ error: "Too many requests, slow down." }, 429, origin);
+      }
+
       const body = await request.json();
       if (body.password !== env.EDIT_PASSWORD) {
         return json({ error: "Unauthorized" }, 401, origin);
@@ -92,6 +98,12 @@ export default {
     }
 
     if (url.pathname === "/spill" && request.method === "POST") {
+      const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+      const { success } = await env.RATE_LIMITER.limit({ key: ip });
+      if (!success) {
+        return json({ error: "Too many requests, slow down." }, 429, origin);
+      }
+
       const body = await request.json();
       if (body.password !== env.EDIT_PASSWORD) {
         return json({ error: "Unauthorized" }, 401, origin);
