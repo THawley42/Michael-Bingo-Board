@@ -29,15 +29,23 @@ const DEFAULT_ITEMS = [
 const FREE_SPACE = "Drinks";
 const CONFIG_KEY = "bingo-config";
 const BOARD_KEY = "bingo-board";
+const PASSWORD_KEY = "bingo-password";
+const API_BASE = "https://bingo-board-backend.michealbingo.workers.dev";
 
 const titleEl = document.getElementById("board-title");
 const boardEl = document.getElementById("board");
 const bannerEl = document.getElementById("bingo-banner");
+const spillCountEl = document.getElementById("spill-count");
+const editorEl = document.getElementById("editor");
+const itemsInput = document.getElementById("items-input");
 
 let config = loadConfig();
 let board = loadBoard(config);
+let spillCount = 0;
 
 render();
+renderSpillCount();
+loadSharedState();
 
 document.getElementById("new-card-btn").addEventListener("click", () => {
   board = makeBoard(config.items);
@@ -50,6 +58,37 @@ document.getElementById("reset-marks-btn").addEventListener("click", () => {
   saveBoard(board);
   render();
 });
+
+document.getElementById("edit-btn").addEventListener("click", () => {
+  itemsInput.value = config.items.join("\n");
+  editorEl.classList.remove("hidden");
+});
+
+document.getElementById("cancel-edit-btn").addEventListener("click", () => {
+  editorEl.classList.add("hidden");
+});
+
+document.getElementById("save-items-btn").addEventListener("click", async () => {
+  const newItems = itemsInput.value
+    .split("\n")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  if (newItems.length < 24) {
+    alert(`Need at least 24 items (you have ${newItems.length}).`);
+    return;
+  }
+
+  const result = await callApi("/items", { items: newItems });
+  if (!result) return;
+
+  config.items = result.items;
+  saveConfig(config);
+  editorEl.classList.add("hidden");
+});
+
+document.getElementById("spill-plus").addEventListener("click", () => adjustSpill(1));
+document.getElementById("spill-minus").addEventListener("click", () => adjustSpill(-1));
 
 document.getElementById("share-btn").addEventListener("click", async () => {
   const encoded = encodeConfig(config, board);
@@ -170,6 +209,69 @@ function loadBoard(cfg) {
 
 function saveBoard(b) {
   localStorage.setItem(BOARD_KEY, JSON.stringify(b));
+}
+
+function renderSpillCount() {
+  spillCountEl.textContent = `Spills: ${spillCount}`;
+}
+
+async function loadSharedState() {
+  try {
+    const res = await fetch(`${API_BASE}/state`);
+    if (!res.ok) return;
+
+    const state = await res.json();
+    if (Array.isArray(state.items) && state.items.length >= 24) {
+      config.items = state.items;
+      saveConfig(config);
+    }
+    spillCount = state.spillCount || 0;
+    renderSpillCount();
+  } catch {
+    // offline or worker unreachable - keep local fallback
+  }
+}
+
+async function adjustSpill(delta) {
+  const result = await callApi("/spill", { delta });
+  if (!result) return;
+
+  spillCount = result.spillCount;
+  renderSpillCount();
+}
+
+async function callApi(path, body) {
+  let password = localStorage.getItem(PASSWORD_KEY);
+  if (!password) {
+    password = prompt("Enter the shared password:");
+    if (password === null) return null;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...body, password }),
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem(PASSWORD_KEY);
+      alert("Incorrect password.");
+      return null;
+    }
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      alert(err.error || "Something went wrong.");
+      return null;
+    }
+
+    localStorage.setItem(PASSWORD_KEY, password);
+    return await res.json();
+  } catch {
+    alert("Could not reach the server. Try again later.");
+    return null;
+  }
 }
 
 function encodeConfig(cfg, brd) {

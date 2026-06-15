@@ -1,7 +1,11 @@
 const STATE_KEY = "state";
 
-// TODO: replace with your actual site origin(s) once the domain is live
-const ALLOWED_ORIGINS = ["http://localhost:5050", "http://127.0.0.1:5050"];
+const ALLOWED_ORIGINS = [
+  "https://michealbingo.com",
+  "https://www.michealbingo.com",
+  "http://localhost:5050",
+  "http://127.0.0.1:5050",
+];
 
 const DEFAULT_STATE = {
   items: [

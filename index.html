@@ -10,7 +10,11 @@
   <div class="app">
     <h1 id="board-title">Bingo</h1>
 
-    <div id="spill-counter" class="spill-counter">Spills: 0</div>
+    <div id="spill-counter" class="spill-counter">
+      <button id="spill-minus" aria-label="Decrease spill count">&minus;</button>
+      <span id="spill-count">Spills: 0</span>
+      <button id="spill-plus" aria-label="Increase spill count">+</button>
+    </div>
 
     <div id="bingo-banner" class="banner hidden">BINGO!</div>
 
@@ -20,6 +24,17 @@
       <button id="new-card-btn">New Card</button>
       <button id="reset-marks-btn">Clear Marks</button>
       <button id="share-btn">Copy Share Link</button>
+      <button id="edit-btn">Edit List</button>
+    </div>
+
+    <div id="editor" class="editor hidden">
+      <label for="items-input">Items (one per line, need at least 24)</label>
+      <textarea id="items-input" rows="10"></textarea>
+
+      <div class="editor-buttons">
+        <button id="save-items-btn">Save for Everyone</button>
+        <button id="cancel-edit-btn">Cancel</button>
+      </div>
     </div>
 
     <p class="hint">Click a square to mark it. Get 5 in a row, column, or diagonal for BINGO!</p>

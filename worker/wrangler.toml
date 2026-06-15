@@ -3,5 +3,5 @@ main = "src/index.js"
 compatibility_date = "2026-06-14"
 
 kv_namespaces = [
-  { binding = "BINGO_KV", id = "REPLACE_WITH_KV_NAMESPACE_ID" }
+  { binding = "BINGO_KV", id = "20799c85debc443fbc7b37d527933a95" }
 ]

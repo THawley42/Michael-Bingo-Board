@@ -23,9 +23,19 @@ h1 {
 }
 
 .spill-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 12px;
+}
+
+.spill-counter button {
+  padding: 2px 12px;
+  font-size: 1.1rem;
+  line-height: 1.2;
 }
 
 .banner {
@@ -98,6 +108,39 @@ button {
 
 button:hover {
   background: #2a2a2a;
+}
+
+.editor {
+  text-align: left;
+  background: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editor label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.editor textarea {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 6px;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  font-family: inherit;
+  background: #121212;
+  color: #e8e6e3;
+}
+
+.editor-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 .hint {
