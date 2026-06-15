@@ -33,9 +33,6 @@ const BOARD_KEY = "bingo-board";
 const titleEl = document.getElementById("board-title");
 const boardEl = document.getElementById("board");
 const bannerEl = document.getElementById("bingo-banner");
-const editorEl = document.getElementById("editor");
-const titleInput = document.getElementById("title-input");
-const itemsInput = document.getElementById("items-input");
 
 let config = loadConfig();
 let board = loadBoard(config);
@@ -51,40 +48,6 @@ document.getElementById("new-card-btn").addEventListener("click", () => {
 document.getElementById("reset-marks-btn").addEventListener("click", () => {
   board.marked = board.marked.map((m, i) => board.cells[i] === FREE_SPACE);
   saveBoard(board);
-  render();
-});
-
-document.getElementById("edit-btn").addEventListener("click", () => {
-  titleInput.value = config.title;
-  itemsInput.value = config.items.join("\n");
-  editorEl.classList.remove("hidden");
-});
-
-document.getElementById("cancel-edit-btn").addEventListener("click", () => {
-  editorEl.classList.add("hidden");
-});
-
-document.getElementById("save-items-btn").addEventListener("click", () => {
-  const newItems = itemsInput.value
-    .split("\n")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
-
-  if (newItems.length < 24) {
-    alert(`Need at least 24 items (you have ${newItems.length}).`);
-    return;
-  }
-
-  config = {
-    title: titleInput.value.trim() || DEFAULT_TITLE,
-    items: newItems,
-  };
-  saveConfig(config);
-
-  board = makeBoard(config.items);
-  saveBoard(board);
-
-  editorEl.classList.add("hidden");
   render();
 });
 

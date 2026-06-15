@@ -7,7 +7,6 @@ board (with a FREE center space) from a customizable list of items.
 
 - **New Card** – shuffle a fresh board from the current item list
 - **Clear Marks** – unmark all squares (FREE stays marked)
-- **Edit List** – change the title and the list of items (need at least 24)
 - **Copy Share Link** – generates a URL that loads your custom title/items
   for anyone who opens it
 - Click a square to mark it; getting 5 in a row/column/diagonal shows a
