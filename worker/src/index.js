@@ -2,7 +2,9 @@ const STATE_KEY = "state";
 
 const ALLOWED_ORIGINS = [
   "https://michealbingo.com",
+  "https://michaelbingo.com",
   "https://www.michealbingo.com",
+  "https://www.michaelbingo.com",
   "http://localhost:5050",
   "http://127.0.0.1:5050",
 ];
