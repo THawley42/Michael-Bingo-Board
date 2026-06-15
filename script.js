@@ -1,4 +1,4 @@
-const DEFAULT_TITLE = "Micheal Bingo";
+const DEFAULT_TITLE = "Michael Bingo";
 const DEFAULT_ITEMS = [
   "Spills drink",
   "Shouts out the bitches",
